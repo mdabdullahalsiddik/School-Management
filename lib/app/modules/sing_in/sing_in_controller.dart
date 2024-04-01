@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:school_management/app/routes/home_routes.dart';
 import 'package:school_management/app/routes/sing_up_routes.dart';
 
 class SingInController extends GetxController {
@@ -13,6 +14,7 @@ class SingInController extends GetxController {
       if (emailController.text.isNotEmpty ||
           passwordController.text.isNotEmpty) {
         print("login");
+        Get.offAllNamed(HomeRoutes.home);
       }
     }
   }
@@ -24,9 +26,6 @@ class SingInController extends GetxController {
   }
 
   singUp() {
-    print("singUp");
-
     Get.toNamed(SingUpRoutes.singUp);
-    print("singUp");
   }
 }

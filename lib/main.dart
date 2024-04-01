@@ -1,11 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:school_management/app/core/bindings/application_bindings.dart';
 import 'package:school_management/app/routes/app_pages.dart';
+import 'package:school_management/firebase_options.dart';
 import 'package:school_management/theme/color_schemes.g.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

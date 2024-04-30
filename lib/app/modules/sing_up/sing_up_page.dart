@@ -160,7 +160,7 @@ class SingUpPage extends GetView<SingUpController> {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   InkWell(
-                    onTap: () => controller.singIn(),
+                onTap: () => controller.singIn(),
                     child: Text(
                       "SingIn",
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(

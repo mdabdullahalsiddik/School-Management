@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:school_management/app/routes/home_routes.dart';
 import 'package:school_management/app/routes/sing_up_routes.dart';
@@ -9,20 +11,38 @@ class SingInController extends GetxController {
 
   var forky = GlobalKey<FormState>();
   var passwordValidator = true.obs;
-  singIn() {
+  singIn() async {
     if (forky.currentState!.validate()) {
       if (emailController.text.isNotEmpty ||
           passwordController.text.isNotEmpty) {
-        print("login");
-        Get.offAllNamed(HomeRoutes.home);
+        try {
+          await EasyLoading.showSuccess('loading...');
+
+          await FirebaseAuth.instance
+              .signInWithEmailAndPassword(
+            email: emailController.text,
+            password: passwordController.text,
+          )
+              .then((value) {
+            Get.offAllNamed(HomeRoutes.home);
+            EasyLoading.showSuccess('Success');
+            EasyLoading.dismiss();
+          });
+        } catch (e) {
+          Get.snackbar("Error", "$e.message");
+          EasyLoading.showError('Error');
+          EasyLoading.dismiss();
+        }
+      } else {
+        Get.snackbar("Error", "Please fill all fields");
       }
+    } else {
+      Get.snackbar("Error", "Please fill all fields");
     }
   }
 
   setPasswordValidator() {
-    print(passwordValidator);
     passwordValidator.value = !passwordValidator.value;
-    print(passwordValidator);
   }
 
   singUp() {

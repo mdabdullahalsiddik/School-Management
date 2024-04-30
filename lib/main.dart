@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:school_management/app/core/bindings/application_bindings.dart';
 import 'package:school_management/app/routes/app_pages.dart';
 import 'package:school_management/firebase_options.dart';
-import 'package:school_management/theme/color_schemes.g.dart';
+import 'package:school_management/app/core/theme/color_schemes.g.dart';
 
 void main() async {
   await Firebase.initializeApp(
@@ -25,8 +25,14 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
-        darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: lightColorScheme,
+        ),
+        darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: darkColorScheme,
+        ),
         title: 'Your App Title',
         initialBinding: ApplicationBindings(),
         initialRoute: AppPages.INITIAL,

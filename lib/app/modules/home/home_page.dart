@@ -14,6 +14,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Row(
           children: [
@@ -21,7 +22,7 @@ class HomePage extends GetView<HomeController> {
               Icons.school_outlined,
             ),
             Gap(10),
-            Text('DPI'),
+            Text('School Management', style: TextStyle(color: Colors.white)),
           ],
         ),
       ),

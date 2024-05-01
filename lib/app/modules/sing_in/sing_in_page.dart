@@ -42,6 +42,7 @@ class SingInPage extends GetView<SingInController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomTextFromField(
+                    controller: controller.emailController,
                     hintText: "User ID or Email",
                     validator: (p0) {
                       if (p0!.isEmpty) {

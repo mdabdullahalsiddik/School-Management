@@ -3,16 +3,28 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:school_management/app/core/widgets/custom_button.dart';
 import 'package:school_management/app/core/widgets/custom_text_field.dart';
-import 'package:school_management/app/modules/sing_up/sing_up_controller.dart';
 
-class SingUpPage extends GetView<SingUpController> {
-  const SingUpPage({super.key});
+import 'teacher_add_controller.dart';
+
+class TeacherAddPage extends GetView<TeacherAddController> {
+  const TeacherAddPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GetBuilder<SingUpController>(
-            init: SingUpController(),
+        appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          title: Text(
+            textAlign: TextAlign.center,
+            "Teacher Add",
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        ),
+        body: GetBuilder<TeacherAddController>(
+            init: TeacherAddController(),
             builder: (controller) {
               return SingleChildScrollView(
                 child: Padding(
@@ -25,21 +37,6 @@ class SingUpPage extends GetView<SingUpController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.school_outlined,
-                            size: 50,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            textAlign: TextAlign.center,
-                            "School Management System \n Sing Up",
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
                       const Gap(10),
                       Stack(
                         alignment: Alignment.bottomRight,
@@ -85,10 +82,10 @@ class SingUpPage extends GetView<SingUpController> {
                           children: [
                             CustomTextFromField(
                               controller: controller.nameController,
-                              hintText: "Full Name",
+                              hintText: "Teacher Full Name",
                               validator: (p0) {
                                 if (p0!.isEmpty) {
-                                  return "Full name can't be empty";
+                                  return "Teacher Full name can't be empty";
                                 }
                                 return null;
                               },
@@ -96,10 +93,10 @@ class SingUpPage extends GetView<SingUpController> {
                             const Gap(5),
                             CustomTextFromField(
                               controller: controller.jobTitleController,
-                              hintText: "Job Title",
+                              hintText: "Teacher Job Title",
                               validator: (p0) {
                                 if (p0!.isEmpty) {
-                                  return "Job title can't be empty";
+                                  return "Teacher Job title can't be empty";
                                 }
                                 return null;
                               },
@@ -107,10 +104,10 @@ class SingUpPage extends GetView<SingUpController> {
                             const Gap(5),
                             CustomTextFromField(
                               controller: controller.phoneController,
-                              hintText: "Phone Number",
+                              hintText: "Teacher Phone Number",
                               validator: (p0) {
                                 if (p0!.isEmpty) {
-                                  return "Phone Number can't be empty";
+                                  return "Teacher Phone Number can't be empty";
                                 }
                                 return null;
                               },
@@ -118,10 +115,10 @@ class SingUpPage extends GetView<SingUpController> {
                             const Gap(5),
                             CustomTextFromField(
                               controller: controller.emailController,
-                              hintText: "Email",
+                              hintText: "Teacher Email Address",
                               validator: (p0) {
                                 if (p0!.isEmpty) {
-                                  return "Email can't be empty";
+                                  return "Teacher Email Address can't be empty";
                                 }
                                 return null;
                               },
@@ -154,33 +151,11 @@ class SingUpPage extends GetView<SingUpController> {
                                 )),
                             const Gap(10),
                             CustomButton(
-                              text: "Sign Up",
-                              onTap: () => controller.singUp(),
+                              text: "Teacher Add",
+                              onTap: () => controller.add(),
                             )
                           ],
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Do have an account?",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          InkWell(
-                            onTap: () => controller.singIn(),
-                            child: Text(
-                              "SingIn",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   )),

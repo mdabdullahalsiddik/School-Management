@@ -3,14 +3,13 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:school_management/app/routes/home_routes.dart';
-import 'package:school_management/app/routes/sing_in_routes.dart';
+import 'package:school_management/app/routes/teacher_list_routes.dart';
 
-class SingUpController extends GetxController {
+class TeacherAddController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -57,12 +56,13 @@ class SingUpController extends GetxController {
     update();
   }
 
-  singUp() async {
+  add() async {
     if (forky.currentState!.validate()) {
       if (emailController.text.isNotEmpty ||
           passwordController.text.isNotEmpty) {
         try {
           await EasyLoading.show(status: 'loading...');
+
 
           await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
@@ -71,9 +71,11 @@ class SingUpController extends GetxController {
           )
               .then((value) async {
             try {
+              await EasyLoading.showSuccess('loading...');
+
               await sendImage();
               await FirebaseFirestore.instance
-                  .collection("admin")
+                  .collection("teacher")
                   .doc(FirebaseAuth.instance.currentUser!.email.toString())
                   .set({
                 "name": nameController.text,
@@ -82,10 +84,15 @@ class SingUpController extends GetxController {
                 "email": emailController.text,
                 "password": passwordController.text,
                 "image": images,
+                "performance": {
+                  "total": 100,
+                  "completed": 90,
+                  "incomplete": 10
+                },
+                "attendance": {"total": 100, "present": 100, "absent": 0},
                 "uid": FirebaseAuth.instance.currentUser!.uid
               }).then((value) {
-                Get.toNamed(HomeRoutes.home);
-                EasyLoading.showSuccess('Success');
+                Get.toNamed(TeacherListRoutes.teacherList);
 
                 EasyLoading.dismiss();
                 Get.snackbar("Success", "User created successfully");
@@ -113,7 +120,7 @@ class SingUpController extends GetxController {
     passwordValidator.value = !passwordValidator.value;
   }
 
-  singIn() {
-    Get.toNamed(SingInRoutes.singIn);
+  teacherList() {
+    Get.toNamed(TeacherListRoutes.teacherList);
   }
 }

@@ -32,14 +32,13 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: lightColorScheme,
         ),
-        
+
         darkTheme: ThemeData(
           useMaterial3: true,
           colorScheme: darkColorScheme,

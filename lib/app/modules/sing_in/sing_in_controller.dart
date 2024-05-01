@@ -16,7 +16,8 @@ class SingInController extends GetxController {
       if (emailController.text.isNotEmpty ||
           passwordController.text.isNotEmpty) {
         try {
-          await EasyLoading.showSuccess('loading...');
+          await EasyLoading.show(status: 'loading...');
+
 
           await FirebaseAuth.instance
               .signInWithEmailAndPassword(
@@ -29,7 +30,7 @@ class SingInController extends GetxController {
             EasyLoading.dismiss();
           });
         } catch (e) {
-          Get.snackbar("Error", "$e.message");
+          Get.snackbar("Error", "$e");
           EasyLoading.showError('Error');
           EasyLoading.dismiss();
         }

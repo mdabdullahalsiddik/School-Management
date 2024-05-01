@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:school_management/app/routes/home_routes.dart';
 import 'package:school_management/app/routes/sing_in_routes.dart';
 
 class SplashController extends GetxController {
@@ -9,10 +11,10 @@ class SplashController extends GetxController {
   }
 
   void time() async {
-    Future.delayed(const Duration(seconds: 5)).then(
-      (value) => Get.toNamed(
-        SingInRoutes.singIn,
-      ),
-    );
+    Future.delayed(const Duration(seconds: 5)).then((value) {
+      FirebaseAuth.instance.currentUser == null
+          ? Get.offAllNamed(SingInRoutes.singIn)
+          : Get.offAllNamed(HomeRoutes.home);
+    });
   }
 }

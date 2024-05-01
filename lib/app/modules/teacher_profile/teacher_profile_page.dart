@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:school_management/app/core/widgets/custom_text_field.dart';
 import 'package:school_management/app/routes/pie_chart_update_routes.dart';
+import 'package:school_management/app/routes/teacher_list_routes.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'teacher_profile_controller.dart';
@@ -18,6 +17,12 @@ class TeacherProfilePage extends GetView<TeacherProfileController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        leading: IconButton(
+          onPressed: () {
+            Get.toNamed(TeacherListRoutes.teacherList);
+          },
+          icon: const Icon(Icons.arrow_back_outlined),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 30),
@@ -288,6 +293,38 @@ class TeacherProfilePage extends GetView<TeacherProfileController> {
                             .collection("teacher")
                             .snapshots(),
                         builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  const Text(
+                                    "Attendance",
+                                  ),
+                                  PieChart(
+                                      swapAnimationDuration:
+                                          const Duration(milliseconds: 1500),
+                                      swapAnimationCurve:
+                                          Easing.emphasizedAccelerate,
+                                      PieChartData(sections: [
+                                        PieChartSectionData(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            value: 100),
+                                        PieChartSectionData(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .error,
+                                            value: 100)
+                                      ])),
+                                ],
+                              ),
+                            );
+                          }
                           return Stack(
                             alignment: Alignment.center,
                             children: [
@@ -330,13 +367,45 @@ class TeacherProfilePage extends GetView<TeacherProfileController> {
                             .collection("teacher")
                             .snapshots(),
                         builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  const Text(
+                                    "Performance",
+                                  ),
+                                  PieChart(
+                                      swapAnimationDuration:
+                                          const Duration(milliseconds: 1500),
+                                      swapAnimationCurve:
+                                          Easing.emphasizedAccelerate,
+                                      PieChartData(sections: [
+                                        PieChartSectionData(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            value: 100),
+                                        PieChartSectionData(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .error,
+                                            value: 100)
+                                      ])),
+                                ],
+                              ),
+                            );
+                          }
                           return InkWell(
                             onTap: () {
                               Get.toNamed(PieChartUpdateRoutes.pieChartUpdate,
                                   arguments: Get.arguments,
-                                  parameters: {"id": snapshot
-                                            .data!
-                                            .docs[Get.arguments].id});
+                                  parameters: {
+                                    "id": snapshot.data!.docs[Get.arguments].id
+                                  });
                             },
                             child: Stack(
                               alignment: Alignment.center,

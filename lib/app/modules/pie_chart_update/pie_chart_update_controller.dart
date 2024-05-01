@@ -22,6 +22,8 @@ class PieChartUpdateController extends GetxController {
             (100 - int.parse(performanceCompletedController.text)).toString()),
       },
     }).then((value) {
+      performanceCompletedController.clear();
+
       Get.toNamed(TeacherProfileRoutes.teacherProfile,
           arguments: Get.arguments);
       EasyLoading.showSuccess("Updated Successfully");
